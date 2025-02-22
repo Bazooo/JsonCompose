@@ -27,21 +27,41 @@ public class SerializationTests
     };
     
     [Test]
-    public Task Basic()
+    public Task Serialize()
     {
         var serialized = JsonSerializer.Serialize(BasePerson);
         return Verify(serialized);
     }
     
     [Test]
-    public Task BasicWithNamingPolicy()
+    public Task SerializeWithNamingPolicy()
     {
-        var jsonSerializerOptions = new JsonSerializerOptions
+        var serialized = JsonSerializer.Serialize(BasePerson, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            WriteIndented = true,
+        });
+        return Verify(serialized);
+    }
+
+    [Test]
+    public Task SerializeThenDeserialize()
+    {
+        var serialized = JsonSerializer.Serialize(BasePerson);
+        var deserialized = JsonSerializer.Deserialize<Person>(serialized);
+        return Verify(deserialized);
+    }
+    
+    [Test]
+    public Task SerializeThenDeserializeWithNamingPolicy()
+    {
+        var options = new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             WriteIndented = true,
         };
-        var serialized = JsonSerializer.Serialize(BasePerson, jsonSerializerOptions);
-        return Verify(serialized);
+        var serialized = JsonSerializer.Serialize(BasePerson, options);
+        var deserialized = JsonSerializer.Deserialize<Person>(serialized, options);
+        return Verify(deserialized);
     }
 }

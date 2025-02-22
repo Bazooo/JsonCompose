@@ -1,0 +1,17 @@
+﻿{
+  Id: 1,
+  FirstName: John,
+  LastName: Doe,
+  Birthday: {
+    Day: 1,
+    Month: 5,
+    Year: 2000
+  },
+  Employment: {
+    Status: FullTime,
+    MonthlySalary: 1000,
+    JobTitle: Software Engineer,
+    CompanyName: Test Company,
+    Industry: IT
+  }
+}
