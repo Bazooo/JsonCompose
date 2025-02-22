@@ -486,3 +486,6 @@ $RECYCLE.BIN/
 # Source generated files
 Generated/
 *.g.cs
+
+# Verify received results
+*.received.txt

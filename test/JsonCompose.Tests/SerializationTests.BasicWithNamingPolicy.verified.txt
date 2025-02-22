@@ -1,0 +1,13 @@
+﻿{
+  "id": 1,
+  "firstName": "John",
+  "lastName": "Doe",
+  "day": 1,
+  "month": 5,
+  "year": 2000,
+  "EmploymentStatus": 1,
+  "monthlySalary": 1000,
+  "jobTitle": "Software Engineer",
+  "companyName": "Test Company",
+  "industry": "IT"
+}

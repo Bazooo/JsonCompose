@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace JsonCompose;
+namespace JsonCompose.Extensions;
 
 public static class UtilityExtensions
 {
