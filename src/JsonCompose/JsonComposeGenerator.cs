@@ -49,7 +49,7 @@ public class JsonComposeGenerator : IIncrementalGenerator
         {
             var model = compilation.GetSemanticModel(classSyntax.SyntaxTree);
 
-            if (model.GetDeclaredSymbol(classSyntax) is not { } classSymbol)
+            if (model.GetDeclaredSymbol(classSyntax, cancellationToken: context.CancellationToken) is not { } classSymbol)
                 continue;
             
             if (!classSyntax.Modifiers.Any(m => m.IsKind(SyntaxKind.PartialKeyword)))
@@ -60,7 +60,17 @@ public class JsonComposeGenerator : IIncrementalGenerator
                 context.ReportDiagnostic(error);
                 return;
             }
-
+            
+            // Check that class has a parameterless constructor
+            if (!classSymbol.Constructors.Where(c => c.DeclaredAccessibility > Accessibility.Private).Any(c => c.Parameters.IsEmpty))
+            {
+                var error = Diagnostic.Create(DiagnosticsDescriptors.ClassHasNoParameterlessConstructorMessage,
+                    classSyntax.Identifier.GetLocation(),
+                    classSymbol.Name);
+                context.ReportDiagnostic(error);
+                return;
+            }
+            
             var classMembers = classSymbol.GetMembers();
             
             var classProperties = classMembers

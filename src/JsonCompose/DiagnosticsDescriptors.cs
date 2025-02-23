@@ -21,4 +21,13 @@ public static class DiagnosticsDescriptors
         defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true
     );
+
+    public static readonly DiagnosticDescriptor ClassHasNoParameterlessConstructorMessage = new(
+        id: "JSC003",
+        title: "Class has no parameterless constructor",
+        messageFormat: "The class '{0}' contains a constructor that but no parameterless constructor, which is required by the JsonComposeAttribute",
+        category: "Generator",
+        defaultSeverity: DiagnosticSeverity.Error,
+        isEnabledByDefault: true
+    );
 }
