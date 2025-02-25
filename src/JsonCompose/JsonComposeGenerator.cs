@@ -71,20 +71,18 @@ public class JsonComposeGenerator : IIncrementalGenerator
                 return;
             }
             
-            var classMembers = classSymbol.GetMembers();
-            
-            var classProperties = classMembers
-                .OfType<IPropertySymbol>()
+            var classProperties = classSymbol
+                .GetProperties()
                 .Where(s => s.DeclaredAccessibility > Accessibility.Private)
                 .ToList();
 
-            var componentProperties = classProperties.Where(p => p.GetAttributes().Any(a => a.AttributeClass?.ToDisplayString().Equals("JsonCompose.ComponentAttribute") ?? false)).ToList();
+            var componentProperties = classProperties.Where(p => p.GetAttributes().Any(a => a.AttributeClass?.ToDisplayString().Equals("JsonCompose.ComponentAttribute", StringComparison.Ordinal) ?? false)).ToList();
             var wrongTypeComponentProperties = componentProperties.Where(cp => cp.Type.TypeKind is not TypeKind.Class).ToList();
 
             foreach (var componentProperty in wrongTypeComponentProperties)
             {
                 var error = Diagnostic.Create(DiagnosticsDescriptors.ComponentIsWrongTypeMessage,
-                    componentProperty.DeclaringSyntaxReferences.First().GetSyntax().GetLocation(),
+                    componentProperty.DeclaringSyntaxReferences.First().GetSyntax(context.CancellationToken).GetLocation(),
                     componentProperty.Name);
                 context.ReportDiagnostic(error);
             }
@@ -94,11 +92,11 @@ public class JsonComposeGenerator : IIncrementalGenerator
             
             var rootPropertySyntaxes = classProperties
                 .Where(p => !componentProperties.Contains(p))
-                .SelectMany(cp => cp.DeclaringSyntaxReferences.Select(x => x.GetSyntax() as PropertyDeclarationSyntax))
+                .SelectMany(cp => cp.DeclaringSyntaxReferences.Select(x => x.GetSyntax(context.CancellationToken) as PropertyDeclarationSyntax))
                 .WhereNotNull()
                 .ToList();
             
-            var classUsings = classSymbol.DeclaringSyntaxReferences.SelectMany(sr => sr.SyntaxTree.GetRoot().ChildNodes().OfType<UsingDirectiveSyntax>());
+            var classUsings = classSymbol.DeclaringSyntaxReferences.SelectMany(sr => sr.SyntaxTree.GetRoot(context.CancellationToken).ChildNodes().OfType<UsingDirectiveSyntax>());
 
             var sourceCode = Template.Composition(new Template.CompositionTemplateData
             {

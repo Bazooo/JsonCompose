@@ -3,12 +3,15 @@
 namespace ConsoleApp;
 
 [JsonCompose]
-public partial class ClassModel
+public partial class ClassModel : Identity
 {
-    public required int Id { get; init; }
-
     [Component]
     public required Name Name { get; init; }
+}
+
+public abstract class Identity
+{
+    public required int Id { get; init; }
 }
 
 public class Name

@@ -1,10 +1,10 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.CodeAnalysis;
 
 namespace JsonCompose.Extensions;
 
 public static class SymbolExtensions
 {
-    public static TypeSyntax ToTypeSyntax(this ITypeSymbol symbol) => SyntaxFactory.ParseTypeName(symbol.ToDisplayString());
+    public static IEnumerable<IPropertySymbol> GetProperties(this INamedTypeSymbol classSymbol) => classSymbol.GetMembers().OfType<IPropertySymbol>().Concat(classSymbol.BaseType?.GetProperties() ?? []);
 }
