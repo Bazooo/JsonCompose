@@ -95,8 +95,8 @@ public class JsonComposeGenerator : IIncrementalGenerator
                 .SelectMany(cp => cp.DeclaringSyntaxReferences.Select(x => x.GetSyntax(context.CancellationToken) as PropertyDeclarationSyntax))
                 .WhereNotNull()
                 .ToList();
-            
-            var classUsings = classSymbol.DeclaringSyntaxReferences.SelectMany(sr => sr.SyntaxTree.GetRoot(context.CancellationToken).ChildNodes().OfType<UsingDirectiveSyntax>());
+
+            var classUsings = classSymbol.GetUsings();
 
             var sourceCode = Template.Composition(new Template.CompositionTemplateData
             {

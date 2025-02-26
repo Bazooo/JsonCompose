@@ -5,8 +5,8 @@
 
 ### New Rules
 
-| Rule ID | Category  | Severity | Notes                  |
-|---------|-----------|----------|------------------------|
-| JSC001  | Generator | Error    | DiagnosticsDescriptors |
-| JSC002  | Generator | Error    | DiagnosticsDescriptors |
-| JSC003  | Generator | Error    | DiagnosticsDescriptors |
+Rule ID | Category | Severity | Notes
+--------|----------|----------|-------
+JSC001 | Generator | Error | DiagnosticsDescriptors
+JSC002 | Generator | Error | DiagnosticsDescriptors
+JSC003 | Generator | Error | DiagnosticsDescriptors

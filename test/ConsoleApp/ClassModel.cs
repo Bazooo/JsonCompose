@@ -1,4 +1,5 @@
-﻿using JsonCompose;
+﻿using ConsoleApp.NestedNamespace;
+using JsonCompose;
 
 namespace ConsoleApp;
 
@@ -12,6 +13,13 @@ public partial class ClassModel : Identity
 public abstract class Identity
 {
     public required int Id { get; init; }
+
+    public string WithValue { get; init; } = "test";
+
+    public Something Something { get; init; } = new()
+    {
+        Amount = 1
+    };
 }
 
 public class Name
