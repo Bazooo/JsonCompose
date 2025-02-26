@@ -73,7 +73,7 @@ public class JsonComposeGenerator : IIncrementalGenerator
             
             var classProperties = classSymbol
                 .GetProperties()
-                .Where(s => s.DeclaredAccessibility > Accessibility.Private)
+                .Where(s => !s.IsReadOnly && s.DeclaredAccessibility > Accessibility.Private)
                 .ToList();
 
             var componentProperties = classProperties.Where(p => p.GetAttributes().Any(a => a.AttributeClass?.ToDisplayString().Equals("JsonCompose.ComponentAttribute", StringComparison.Ordinal) ?? false)).ToList();
