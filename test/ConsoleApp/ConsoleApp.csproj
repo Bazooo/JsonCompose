@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="ReviewSights.Missing.Sdk/1.0.0">
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
