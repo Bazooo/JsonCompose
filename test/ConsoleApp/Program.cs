@@ -8,8 +8,8 @@ var classModel = new ClassModel
     Address = new Address
     {
         Street = "123 Main St",
-        City = "Toronto",
-        Province = "Ontario",
+        City = "Montreal",
+        Province = "Quebec",
         ZipCode = new ZipCode
         {
             First = "A1A",
@@ -30,3 +30,4 @@ var serialized = JsonSerializer.Serialize(classModel, new JsonSerializerOptions
 });
 
 Console.WriteLine(serialized);
+Console.WriteLine($"Length: {serialized.Length}");
