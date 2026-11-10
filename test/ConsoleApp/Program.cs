@@ -32,3 +32,4 @@ var serialized = JsonSerializer.Serialize(classModel, new JsonSerializerOptions
 Console.WriteLine(serialized);
 Console.WriteLine($"Length: {serialized.Length}");
 Console.WriteLine("Done");
+Console.WriteLine("Bye");
